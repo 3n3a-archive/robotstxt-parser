@@ -36,11 +36,7 @@ func ParseTxt(txt string) (RobotsTxt, error) {
 		}
 	}
 
-	// fmt.Printf("Super KVS: %#v\n", kv_of_kvs)
-
 	rt := transformToRobotsTxt(kv_of_kvs)
-
-	fmt.Printf("RT: %+v\n", rt)
 	
 	return rt, nil
 }
