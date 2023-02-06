@@ -1,10 +1,8 @@
 package RobotsTxtParser
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
-	// "golang.org/x/exp/slices"
 )
 
 type KV struct {
