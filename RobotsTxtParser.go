@@ -75,6 +75,7 @@ func splitByPairs(text string) []string {
 	var unescaped_pairs []string
 	for _, item := range pairs {
 		escaped_item := strings.Replace(item, `\n`, "\n", -1)
+		escaped_item = strings.Replace(escaped_item, `\r`, "", -1)
 		unescaped_pairs = append(unescaped_pairs, escaped_item)
 	}
 	return unescaped_pairs
