@@ -3,6 +3,7 @@ package RobotsTxtParser
 import (
 	"regexp"
 	"strings"
+	"fmt"
 )
 
 type KV struct {
@@ -22,6 +23,8 @@ type RobotsTxt struct {
 }
 
 func ParseTxt(txt string) (RobotsTxt, error) {
+
+	txt = fmt.Sprintf("%s\n", txt)
 
 	kv_of_kvs := [][]KV{}
 	pairs := splitByPairs(txt)
@@ -69,11 +72,12 @@ func transformToRobotsTxt(kv_of_kvs [][]KV) RobotsTxt {
 }
 
 func splitByPairs(text string) []string {
-	pattern := regexp.MustCompile(`(?m)\n(\n|#\n)`)
-	pairs := pattern.Split(text, -1)
+	pattern := regexp.MustCompile(`(?si)(((user-agent|sitemap):.*?)([\n]{2,})|((user-agent|sitemap):[ \t]+(.*?)(\n)))`)
+	pairs := pattern.FindAllStringSubmatch(text, -1)
 
 	var unescaped_pairs []string
-	for _, item := range pairs {
+	for _, matches := range pairs {
+		item := matches[1] // first match group
 		escaped_item := strings.Replace(item, `\n`, "\n", -1)
 		escaped_item = strings.Replace(escaped_item, `\r`, "", -1)
 		escaped_item = strings.Replace(escaped_item, "\r", "", -1)
