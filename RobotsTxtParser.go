@@ -12,19 +12,19 @@ type KV struct {
 }
 
 type UserAgentRule struct {
-	UserAgents []string
-	Allow []string
-	Disallow []string
+	UserAgents []string		`json:"user-agents"`
+	Allow []string			`json:"allow"`
+	Disallow []string		`json:"disallow"`
 }
 
 type RobotsTxt struct {
-	UserAgentRules []UserAgentRule
-	Sitemaps []string
+	UserAgentRules []UserAgentRule	`json:"user-agent-rules"`
+	Sitemaps []string				`json:"sitemaps"`
 }
 
 func ParseTxt(txt string) (RobotsTxt, error) {
 
-	txt = fmt.Sprintf("%s\n", txt)
+	txt = fmt.Sprintf("%s\n", txt) // fixes the regex for a user-agent config right at end string
 
 	kv_of_kvs := [][]KV{}
 	pairs := splitByPairs(txt)
